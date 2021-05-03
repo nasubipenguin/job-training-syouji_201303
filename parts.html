@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>UIパーツ制作サンプル</title>
+<link rel="stylesheet" type="text/css" href="css/cmn_layout.css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/cmn_style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="js/flexslider/flexslider.css" media="all" />
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.6/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/flexslider/jquery.flexslider.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/stickysidebar.jquery.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+$(function(){	  
+	$('.tabNavi li').click(function(){
+		$('.tabContents .flexslider').hide();
+		$('.tabNavi li a').removeClass('active');
+		var navi = $(this),
+			contents = $(this).parent().next('.tabContents').children('.tabs'),
+			href = $('a', navi).attr('href');
+		$(href).show();
+		$('a', navi).addClass('active');
+		startSlider(href);		
+		return false;
+	});
+	$('.tabContents .flexslider').hide();
+	$('.tabNavi li:eq(0)').click();
+	
+	function startSlider(href) {
+		if(href=='#tab01') {
+			$(href).flexslider({
+				animation: "fade",
+				pauseOnAction: false,
+				directionNav:  false
+			});
+		} else if(href=='#tab02') {
+			$(href).flexslider({
+				animation: "slide",
+				pauseOnAction: false,
+				directionNav:  false
+			});	
+		}
+	}
+	$('#maysonry').masonry({
+		  itemSelector: '.box'
+	});
+	$('.accordion').stickySidebar();
+})
+</script>
+
+
+<script type="text/javascript">
+window.addEventListener("load", postSize, false);
+function postSize(e){
+	var target = parent.postMessage ? parent : (parent.document.postMessage ? parent.document : undefined);
+	if (typeof target != "undefined" && document.body.scrollHeight)
+		target.postMessage(document.getElementById("wrapper").scrollHeight, "*");
+}
+</script>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="header"></div>
+		<div id="contents">
+			<div id="main">
+				<h2 class="h2_basic opencloseTit01"><span>アコーディオン</span></h2>
+				<div class="opencloseBox01 section">
+					<p>● 右端に「-」または「＋」マークの付いている見出しをクリックすると、ボックスがアコーディオンで開閉します。</p>
+				<!-- /section --></div>
+		
+				<h2 class="h2_basic opencloseTit01"><span>追従型ナビゲーション</span></h2>
+				<div class="opencloseBox01 section">
+					<p>● スクロールをすると、左のナビゲーションがついてきます。</p>
+					<p>● ナビゲーションの大項目をクリックすると、ゆっくりと開閉します。</p>
+				<!-- /section --></div>
+				
+				<h2 class="h2_basic opencloseTit01"><span>スライダー・タブ切り替え</span></h2>
+				<div class="opencloseBox01 section">
+					<p>● タブをクリックすることで、表示内容が切り替わります。</p>
+					<p>● 【タブ内】スライダーやフェードで複数の画像を切り替えて表示しています。</p>
+					<div id="mainimg">
+						<ul class="tabNavi clearfix">
+							<li>
+								<a href="#tab01">フェード</a>
+								<p class="caption">画像がフェードして切り替わります</p>
+							</li><!--
+							--><li>
+								<a href="#tab02">スライド</a>
+								<p class="caption">画像がスライドして切り替わります</p>
+							</li>
+						</ul>		
+						<div class="tabContents">
+							<div id="tab01" class="flexslider">
+								<p>画像がフェードして切り替わります</p>
+								<ul class="slides">
+									<li><img src="img/mainimg_index01.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index02.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index03.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index04.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index05.jpg" width="600" height="395" alt="" /></li>			
+								</ul>
+							<!-- /tab01 --></div>
+							<div id="tab02" class="flexslider">
+								<p>画像がスライドして切り替わります</p>
+								<ul class="slides">
+									<li><img src="img/mainimg_index01.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index02.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index03.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index04.jpg" width="600" height="395" alt="" /></li>
+									<li><img src="img/mainimg_index05.jpg" width="600" height="395" alt="" /></li>			
+								</ul>
+							<!-- /tab02 --></div>
+						<!-- /tabContents --></div>
+					<!-- /mainimg --></div>
+				<!-- /section --></div>
+				
+				<h2 class="h2_basic opencloseTit01"><span>タイル貼り風のボックス配置</span></h2>
+				<div class="opencloseBox01 section">
+					<p class="mb15">● 高さの異なる画像でも、隙間なく配置できます（IE7以前は未対応）</p>
+					<div class="clearfix">
+						<div class="flL">
+							<p class="mb15">【通常時】</p>
+							<div class="maysonry01 clearfix">
+								<p class="box col2"><img src="img/pic_index_maysonry01.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry06.jpg" width="150" height="299" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry04.jpg" width="150" height="226" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry03.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry05.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry02.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry07.jpg" width="150" height="225" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry08.jpg" width="150" height="226" alt="" /></p>
+							<!-- /maysonry01 clearfix --></div>
+						<!-- /flL --></div>
+						
+						<div class="flR">
+							<p class="mb15">【タイル張り風】</p>
+							<div id="maysonry" class="maysonry01 clearfix">
+								<p class="box col2"><img src="img/pic_index_maysonry01.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry06.jpg" width="150" height="299" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry04.jpg" width="150" height="226" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry03.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry05.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry02.jpg" width="150" height="150" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry07.jpg" width="150" height="225" alt="" /></p>
+								<p class="box col2"><img src="img/pic_index_maysonry08.jpg" width="150" height="226" alt="" /></p>
+							<!-- /maysonry01 clearfix --></div>
+						<!-- /flR --></div>
+					<!-- /clearfix --></div>
+				<!-- /section --></div>
+				
+				<div class="exampleList01 clearfix">
+					<div class="exampleList01In flL">
+						<h2 class="h2_basic opencloseTit01"><span>ロールオーバー1</span></h2>
+						<div class="opencloseBox01">				
+							<div class="innerBox01">
+								<p class="tit">● マウスを乗せると、背景色がゆっくり反転します<br />（IE9以下ではすぐに反転しますが、<br />追加JSで同様の動きを再現可能です）</p>
+								<ul id="lnavi">
+									<li><a href="#" class="jsover"><img src="img/pic_index_example02.jpg" alt="オレンジ" width="60" height="50" />オレンジ</a></li>
+									<li><a href="#" class="jsover"><img src="img/pic_index_example03.jpg" alt="いちご" width="60" height="51" />いちご</a></li>
+									<li><a href="#" class="jsover"><img src="img/pic_index_example04.jpg" alt="レモン" width="60" height="50" />レモン</a></li>
+								</ul>
+							<!-- /innerBox01 --></div>
+						<!-- /opencloseBox01 --></div>
+					<!-- /exampleList01In --></div>
+					
+					<div class="exampleList01In flR">
+						<h2 class="h2_basic opencloseTit01"><span>ロールオーバー2</span></h2>
+						<div class="opencloseBox01">
+							<div class="innerBox01">
+								<p class="tit">● マウスを乗せると、文字が浮き上がります<br /> IE9以下ではすぐに表示されますが、<br />追加JSで同様の動きを再現可能です）</p>
+								<p class="fade fade01">
+									<img src="img/pic_index_example01.jpg" alt="" width="210" height="140" />
+									<a href="#" class="bg"><span class="txt">おいしいぶどうです</span></a>
+								</p>
+								<p class="fade fade02 mt10">
+									<img src="img/pic_index_example01.jpg" alt="" width="210" height="140" />
+									<a href="#" class="bg"><span class="txt">おいしいぶどうです</span></a>
+								</p>
+							<!-- /innerBox01 --></div>
+						<!-- /opencloseBox01 --></div>
+					<!-- /exampleList01In --></div>
+				<!-- /exampleList01 --></div>
+					
+				<div class="exampleList01 clearfix">
+					<div class="exampleList01In flL">
+						<h2 class="h2_basic opencloseTit01"><span>プルダウンメニュー</span></h2>
+						<div class="opencloseBox01">				
+							<div class="innerBox01">
+								<p class="tit">● マウスを乗せると、サブメニューが開きます<br />（IE8以下は角丸部分が四角く表示されます）</p>
+								<ul id="gNavi">
+									<li class="pulldownmenu">
+										<a href="#" class="menu">マイページ</a>
+										<div class="submenu">
+											<ul>
+												<li><a href="#">ご利用履歴</a></li>
+												<li><a href="#">会員情報確認・変更</a></li>
+											</ul>
+										</div>
+									<!-- /pulldownmenu --></li>
+									<li class="pulldownmenu">
+										<a href="#" class="menu">商品一覧</a>
+										<div class="submenu">
+											<ul>
+												<li><a href="#">商品カテゴリ1</a></li>
+												<li><a href="#">商品カテゴリ2</a></li>
+												<li><a href="#">商品カテゴリ3</a></li>
+											</ul>
+										</div>
+									<!-- /pulldownmenu --></li>
+								</ul>
+							<!-- /innerBox01 --></div>
+						<!-- /opencloseBox01 --></div>
+					<!-- /exampleList01In --></div>
+				<!-- /exampleList01 --></div>
+			<!-- /main --></div>
+		
+			<div id="sub">
+				<dl class="accordion">
+					<dt><span>大項目１</span></dt>
+					<dd>
+						<ul>
+							<li><a href="#">中項目１</a></li>
+						</ul>
+					</dd>
+					<dt><span>大項目２</span></dt>
+					<dd>
+						<ul>
+							<li><a href="#">中項目１</a></li>
+							<li><a href="#" class="active">中項目２</a></li>
+							<li><a href="#">中項目３</a></li>
+							<li><a href="#">中項目４</a></li>
+						</ul>
+					</dd>
+					<dt><span>大項目３</span></dt>
+					<dd>
+						<ul>
+							<li><a href="#">中項目１</a></li>
+							<li><a href="#">中項目２</a></li>
+							<li><a href="#">中項目３</a></li>
+							<li><a href="#">中項目４</a></li>
+							<li><a href="#">中項目５</a></li>
+						</ul>
+					</dd>
+					<dt><span>大項目４</span></dt>
+					<dd>
+						<ul>
+							<li><a href="#">中項目１</a></li>
+							<li><a href="#">中項目２</a></li>
+							<li><a href="#">中項目３</a></li>
+						</ul>
+					</dd>
+				</dl>
+			
+			<!-- /sub --></div>
+		<!-- /contents --></div>
+		<p class="pageTop"><a href="#header"><img src="img/bg_submenu01.gif" width="10" height="5" alt="" />pagetop</a></p>
+	<!-- /wrapper --></div>
+</body>
+</html>
